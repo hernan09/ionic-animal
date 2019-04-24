@@ -1,14 +1,39 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Ionic Blank
+  <ion-toolbar color="primary">
+    <ion-title text-center >
+      Sonidos-App
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div class="ion-padding">
-    The world is your oyster.
-    <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
-  </div>
+    <ion-refresher (ionRefresh)="recargar_animales($event)">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
+  <ion-list>
+    <ion-reorder-group>
+
+   
+      <ion-item-sliding *ngFor="let animal of animales; let i = index">
+    <ion-item  (click)="reproducir(animal)">
+        <ion-reorder slot="start"></ion-reorder>
+      <ion-avatar  >
+         <img [src]="animal.imagen" alt="">
+      </ion-avatar>
+      <h2>{{ animal.nombre }}</h2>
+      
+      <ion-icon item-end *ngIf="!animal.reproduciendo" name="play"></ion-icon>
+      <ion-icon item-end *ngIf="animal.reproduciendo" name="pause"></ion-icon>
+    
+    </ion-item>
+      <ion-item-options side="end">
+        <button ion-button color="primary" (click)="borrar_animal(i)">
+          <ion-icon name="md-pint"></ion-icon>
+          Borrar
+        </button>
+      </ion-item-options>
+  </ion-item-sliding>
+</ion-reorder-group>
+  </ion-list>
+  
 </ion-content>

@@ -7,33 +7,36 @@
 </ion-header>
 
 <ion-content>
+
     <ion-refresher (ionRefresh)="recargar_animales($event)">
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher>
-  <ion-list>
-    <ion-reorder-group>
 
-   
-      <ion-item-sliding *ngFor="let animal of animales; let i = index">
-    <ion-item  (click)="reproducir(animal)">
-        <ion-reorder slot="start"></ion-reorder>
-      <ion-avatar  >
-         <img [src]="animal.imagen" alt="">
-      </ion-avatar>
-      <h2>{{ animal.nombre }}</h2>
-      
-      <ion-icon item-end *ngIf="!animal.reproduciendo" name="play"></ion-icon>
-      <ion-icon item-end *ngIf="animal.reproduciendo" name="pause"></ion-icon>
+  <ion-list>
+<ion-reorder-group [disabled]="false" (ionItemReorder)="reorder( $event )">
+    <ion-item-sliding *ngFor="let animal of animales; let i = index">
+        <ion-item  (click)="reproducir(animal)">
+            
+          <ion-avatar>
+             <img [src]="animal.imagen" alt="">
+          </ion-avatar>
+          <h2>{{ animal.nombre }}</h2>
+          
+          <ion-icon item-end *ngIf="!animal.reproduciendo" name="play"></ion-icon>
+          <ion-icon item-end *ngIf="animal.reproduciendo" name="pause"></ion-icon>
+          <ion-reorder slot="end"></ion-reorder>
+        </ion-item>
+          <ion-item-options side="start">
+            <button ion-button color="primary" (click)="borrar_animal(i)">
+              <ion-icon name="md-pint"></ion-icon>
+              Delete
+            </button>
+          </ion-item-options>
     
-    </ion-item>
-      <ion-item-options side="end">
-        <button ion-button color="primary" (click)="borrar_animal(i)">
-          <ion-icon name="md-pint"></ion-icon>
-          Borrar
-        </button>
-      </ion-item-options>
-  </ion-item-sliding>
+      </ion-item-sliding>
+    
 </ion-reorder-group>
+     
   </ion-list>
   
 </ion-content>

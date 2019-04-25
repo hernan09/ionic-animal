@@ -66,9 +66,17 @@ export class HomePage {
 
             this.animales=ANIMALES.slice(0);
 
+           
+
             event.target.complete();
 
       },1500)
+  }
+  reorder(event:any){
+    console.log(event);
+    const itemMover = this.animales.splice(event.detail.from,1)[0];
+    this.animales.splice(event.detail.to,0,itemMover);
+    event.detail.complete();
   }
 
 }
